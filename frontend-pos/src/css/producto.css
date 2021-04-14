@@ -1,0 +1,39 @@
+.container {
+}
+
+.label {
+  margin-left: 3rem;
+  padding: 0.5rem;
+  width: 4.5rem;
+  display: flex;
+  align-items: center;
+}
+.row {
+  display: flex;
+}
+
+.button-container {
+  width: 100%;
+
+  display: flex;
+  justify-content: flex-end;
+}
+
+.button {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 8rem;
+  height: 3rem;
+  margin-bottom: 4rem;
+}
+
+input {
+  width: 20rem;
+  height: 2rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+  resize: vertical;
+  margin: 0.5rem;
+  margin-left: 5rem;
+}
