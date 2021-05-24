@@ -3,6 +3,7 @@ import axios from "axios";
 
 import Nota from "../components/nota";
 import List from "../components/list";
+import Header from '../components/header'
 
 import "../css/compra.css";
 import "../css/home.css";
@@ -72,26 +73,29 @@ const Compra = () => {
 
   return (
     <React.Fragment>
-      <div className="flex-center">
-        <Nota items={selectedItems} total={total} />
-
-        <input
-          id="cityname"
-          type="text"
-          value={keyword}
-          className="form-control"
-          onChange={handleChange}
-          onKeyDown={handleKeyDown}
-        />
-
-        <List items={items} producto={false} className="margin_spaces" />
-
-        <input
-          type="button"
-          onClick={handleVenta}
-          className="margin_spaces"
-          value="Hacer Compra"
-        />
+      <Header currPage="Compra"></Header>
+      <div className="container main-content">
+        <div className="column">
+          <input
+            id="cityname"
+            type="text"
+            value={keyword}
+            className="form-control"
+            onChange={handleChange}
+            onKeyDown={handleKeyDown}
+            placeholder="Escanee o busque artículo"
+          />
+          <List items={items} producto={false} className="margin_spaces" />
+        </div>
+        <div className="column">
+          <Nota items={selectedItems} total={total} />
+          <input
+            type="button"
+            onClick={handleVenta}
+            className="hacer-compra-btn"
+            value="Hacer Compra"
+          />
+        </div>
       </div>
     </React.Fragment>
   );

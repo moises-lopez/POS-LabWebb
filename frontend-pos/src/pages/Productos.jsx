@@ -3,6 +3,7 @@ import { useHistory } from "react-router-dom";
 import axios from "axios";
 
 import List from "../components/list";
+import Header from "../components/header";
 
 import "../css/home.css";
 
@@ -25,6 +26,7 @@ const Productos = () => {
 
   return (
     <React.Fragment>
+      <Header currPage="Compra"></Header>
       <div className="flex-center">
         <button onClick={() => handlePushHistory("/AgregarProducto")}>
           Agregar Productos

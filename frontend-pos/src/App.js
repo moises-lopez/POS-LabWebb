@@ -13,25 +13,26 @@ function App() {
   let [currentTab, setCurrentTab] = useState("/Compra");
   let history = useHistory();
 
-  let handelTabChange = (tab) => {
+  let handelTabChange = tab => {
     setCurrentTab(tab);
     history.push(tab);
   };
 
   return (
     <React.Fragment>
-      <TabsBar tab={currentTab} handelTabChange={handelTabChange} />
-      <div className="tab_container flex-center">
-        <div className="center_item">
-          <Switch>
-            <Route path="/Compra" component={Compra} />
-            <Route path="/Productos" component={Productos} />
-            <Route path="/Ventas" component={Ventas} />
-            <Route path="/AgregarProducto" component={AgregarProducto} />
-            <Route path="/EditarProducto" component={EditarProducto} />
-
-            <Redirect from="/" to={currentTab} />
-          </Switch>
+      <div class="container">
+        <TabsBar tab={currentTab} handelTabChange={handelTabChange} />
+        <div className="tab_container flex-center">
+          <div className="center_item">
+            <Switch>
+              <Route path="/Compra" component={Compra} />
+              <Route path="/Productos" component={Productos} />
+              <Route path="/Ventas" component={Ventas} />
+              <Route path="/AgregarProducto" component={AgregarProducto} />
+              <Route path="/EditarProducto" component={EditarProducto} />
+              <Redirect from="/" to={currentTab} />
+            </Switch>
+          </div>
         </div>
       </div>
     </React.Fragment>
