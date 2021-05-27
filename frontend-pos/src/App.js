@@ -9,6 +9,10 @@ import Ventas from "./pages/Ventas";
 import AgregarProducto from "./pages/AgregarProducto";
 import TabsBar from "./components/tabsbar";
 import EditarProducto from "./pages/EditarProducto";
+import Login from "./pages/Login"
+import Registro from "./pages/Registro"
+
+
 function App() {
   let [currentTab, setCurrentTab] = useState("/Compra");
   let history = useHistory();
@@ -25,14 +29,17 @@ function App() {
         <div className="tab_container flex-center">
           <div className="center_item">
             <Switch>
+              <Route path="/Login" component={Login} />
+              <Route path="/Registro" component={Registro} />
               <Route path="/Compra" component={Compra} />
               <Route path="/Productos" component={Productos} />
               <Route path="/Ventas" component={Ventas} />
               <Route path="/AgregarProducto" component={AgregarProducto} />
               <Route path="/EditarProducto" component={EditarProducto} />
-              <Redirect from="/" to={currentTab} />
+              <Redirect from="/" to={"/Login"} />
             </Switch>
           </div>
+
         </div>
       </div>
     </React.Fragment>
