@@ -1,4 +1,5 @@
 import React, { useState, useEffect, Component } from "react";
+import Header from "../components/header";
 import axios from "axios";
 const Ventas = () => {
   let [ventas, setVentas] = useState([]);
@@ -23,6 +24,7 @@ const Ventas = () => {
   }
   return (
     <React.Fragment>
+      <Header currPage="Compra"></Header>
       <div className="container margin_spaces">
         <table className="table">
           <tr>
