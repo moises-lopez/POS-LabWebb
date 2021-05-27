@@ -1,4 +1,4 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
@@ -15,9 +15,12 @@ const Productos = () => {
     return await axios.get("http://localhost:5000/api/products/");
   };
 
-  useEffect(async () => {
-    let { data } = await getData();
-    setItems(data);
+  useEffect(() => {
+    const fetchData = async () => {
+      let { data } = await getData();
+      setItems(data);
+    }
+    fetchData()
   }, []);
 
   let handlePushHistory = (url) => {

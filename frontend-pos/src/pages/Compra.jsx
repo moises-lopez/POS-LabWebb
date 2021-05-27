@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 import axios from "axios";
 
 import Nota from "../components/nota";
@@ -14,29 +14,33 @@ const Compra = () => {
   let [items, setItems] = useState([]);
 
   let [selectedItems, setSelectedItems] = useState([]);
-  useEffect(() => {
-    calculateTotal();
-  }, [selectedItems]);
 
-  const getData = async () => {
-    return await axios.get("http://localhost:5000/api/products/");
-  };
-
-  useEffect(async () => {
-    let { data } = await getData();
-    setItems(data);
-  }, []);
-
-  const handleChange = (e) => {
-    setKeyword(e.target.value);
-  };
-
-  const calculateTotal = () => {
+  const calculateTotal = useCallback(() => {
     let auxTotal = 0;
     selectedItems.forEach((item) => {
       auxTotal += item.unitPrice * item.quantity;
     });
     setTotal(auxTotal);
+  }, [selectedItems]);
+
+  useEffect(() => {
+    calculateTotal();
+  }, [selectedItems, calculateTotal]);
+
+  const getData = async () => {
+    return await axios.get("http://localhost:5000/api/products/");
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let { data } = await getData();
+      setItems(data);
+    }
+    fetchData()
+  }, []);
+
+  const handleChange = (e) => {
+    setKeyword(e.target.value);
   };
 
   const handleKeyDown = async (e) => {

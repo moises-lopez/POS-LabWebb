@@ -20,7 +20,7 @@ function App() {
 
   return (
     <React.Fragment>
-      <div class="container">
+      <div className="container">
         <TabsBar tab={currentTab} handelTabChange={handelTabChange} />
         <div className="tab_container flex-center">
           <div className="center_item">
