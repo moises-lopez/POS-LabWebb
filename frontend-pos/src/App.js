@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/home.css";
 
 import Compra from "./pages/Compra";
