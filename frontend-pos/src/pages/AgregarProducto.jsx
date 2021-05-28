@@ -10,35 +10,71 @@ import Row from "./../components/row";
 function AgregarProducto({ show, setShow }) {
 
   // const [setShow] = useState(false);
-
+  //const reload=()=>window.location.reload();
   const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
 
   let [product, setProduct] = useState({});
-
+  
   const handleChange = (e) => {
     const auxProduct = { ...product };
     auxProduct[e.currentTarget.name] = e.currentTarget.value;
     setProduct(auxProduct);
+    
   };
 
   const addProduct = () => {
     axios.post("http://localhost:5000/api/products/save", product);
+    setShow(false);
+    //reload();
   };
 
   return (
     <>
       <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+        <Modal.Header>
+          <Modal.Title>Agregar Producto</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+
+          <Row
+            label="ID"
+            name="_id"
+            value={product._id}
+            handleChange={handleChange}
+          />
+           <Row
+            label="Nombre del producto"
+            name="name"
+            value={product._name}
+            handleChange={handleChange}
+          />
+           <Row
+            label="Precio por unidad"
+            name="unitPrice"
+            value={product.unitPrice}
+            handleChange={handleChange}
+          />
+          <Row
+            label="Categoría"
+            name="category"
+            value={product.category}
+            handleChange={handleChange}
+          />
+          
+          <Row
+            label="Cantidad"
+            name="quantity"
+            value={product.quantity}
+            handleChange={handleChange}
+          />
+          </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
-            Close
+            Cancelar
           </Button>
-          <Button variant="primary" onClick={handleClose}>
-            Save Changes
+          <Button variant="primary" onClick={addProduct}>
+            Agregar
           </Button>
         </Modal.Footer>
       </Modal>
@@ -48,51 +84,3 @@ function AgregarProducto({ show, setShow }) {
 }
 
 export default AgregarProducto;
-
-
-
-
-
-//     <Modal show={show} onHide={handleClose}>
-//       <Modal.Header closeButton></Modal.Header>
-//         <div>
-//           <h1>AGREGAR PRODUCTO</h1>
-//           <Row
-//             label="ID"
-//             name="_id"
-//             value={product._id}
-//             handleChange={handleChange}
-//           />
-//           <Row
-//             label="Name"
-//             name="name"
-//             value={product._name}
-//             handleChange={handleChange}
-//           />
-//           <Row
-//             label="Unit Price"
-//             name="unitPrice"
-//             value={product.unitPrice}
-//             handleChange={handleChange}
-//           />
-//           <Row
-//             label="Category"
-//             name="category"
-//             value={product.category}
-//             handleChange={handleChange}
-//           />
-//           <Row
-//             label="Quantity"
-//             name="quantity"
-//             value={product.quantity}
-//             handleChange={handleChange}
-//           />
-//         </div>
-//         <div className="button-container">
-//           <button className="button" onClick={addProduct}>
-//             Agregar
-//         </button>
-//         </div>
-//   );
-// };
-

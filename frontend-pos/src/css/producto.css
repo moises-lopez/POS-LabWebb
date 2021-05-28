@@ -27,6 +27,11 @@
   margin-bottom: 4rem;
 }
 
+.btn-flat {
+  background-color: #acbea3;
+}
+
+
 input {
   width: 100%;
   height: 2rem;

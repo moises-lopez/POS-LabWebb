@@ -1,6 +1,8 @@
 import React from "react";
 import Item from "../components/item";
 
+import Button from 'react-bootstrap/Button'
+
 import "../css/compra.css";
 import "../css/home.css";
 

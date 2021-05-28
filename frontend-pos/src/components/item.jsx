@@ -1,6 +1,8 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 
+import Button from 'react-bootstrap/Button'
+
 const Item = ({ ID, nombre, precio, cantidad, categoria, producto }) => {
   let history = useHistory();
   let handlePushHistory = (url) => {
@@ -16,12 +18,12 @@ const Item = ({ ID, nombre, precio, cantidad, categoria, producto }) => {
       {producto ? (
         <React.Fragment>
           <td>
-            <button onClick={() => handlePushHistory("/EditarProducto")}>
+            <Button variant="outline-info" onClick={() => handlePushHistory("/EditarProducto")}>
               Editar
-            </button>
+            </Button>
           </td>
           <td>
-            <button> Borrar </button>
+            <Button variant="outline-info"> Borrar </Button>
           </td>
         </React.Fragment>
       ) : (
