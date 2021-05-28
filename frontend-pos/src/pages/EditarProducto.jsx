@@ -4,12 +4,16 @@ import axios from "axios";
 const EditarProducto = () => {
   const location = useLocation();
   let [product, setProduct] = useState({});
-  useEffect(async () => {
-    let { data } = await axios.get(
-      `http://localhost:5000/api/products/${location.state.id}`
-    );
-    console.log(data[0]);
-    setProduct(data[0]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let { data } = await axios.get(
+        `http://localhost:5000/api/products/${location.state.id}`
+      );
+      console.log(data[0]);
+      setProduct(data[0]);
+    }
+    fetchData()
   }, [location]);
 
   const handleChange = (e) => {

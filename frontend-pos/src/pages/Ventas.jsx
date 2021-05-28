@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/header";
 import axios from "axios";
 const Ventas = () => {
@@ -17,7 +17,6 @@ const Ventas = () => {
     }
     fetchData();
   }, []);
-  let a = "test";
 
   if (loading) {
     return <div>LOADING</div>;

@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { useHistory } from "react-router-dom";
 
 const Item = ({ ID, nombre, precio, cantidad, categoria, producto }) => {

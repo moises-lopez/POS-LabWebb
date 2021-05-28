@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/home.css";
 
 import Compra from "./pages/Compra";
@@ -24,7 +25,7 @@ function App() {
 
   return (
     <React.Fragment>
-      <div class="container">
+      <div className="container">
         <TabsBar tab={currentTab} handelTabChange={handelTabChange} />
         <div className="tab_container flex-center">
           <div className="center_item">

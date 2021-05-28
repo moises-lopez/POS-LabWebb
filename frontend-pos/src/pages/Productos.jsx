@@ -1,4 +1,7 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
+import Modal from 'react-bootstrap/Modal'
+import Button from 'react-bootstrap/Button'
+
 import { useHistory } from "react-router-dom";
 import axios from "axios";
 
@@ -6,8 +9,15 @@ import List from "../components/list";
 import Header from "../components/header";
 
 import "../css/home.css";
+import AgregarProducto from "./AgregarProducto";
 
 const Productos = () => {
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
   let history = useHistory();
 
   let [items, setItems] = useState([]);
@@ -15,9 +25,12 @@ const Productos = () => {
     return await axios.get("http://localhost:5000/api/products/");
   };
 
-  useEffect(async () => {
-    let { data } = await getData();
-    setItems(data);
+  useEffect(() => {
+    const fetchData = async () => {
+      let { data } = await getData();
+      setItems(data);
+    }
+    fetchData()
   }, []);
 
   let handlePushHistory = (url) => {
@@ -28,12 +41,13 @@ const Productos = () => {
     <React.Fragment>
       <Header currPage="Compra"></Header>
       <div className="flex-center">
-        <button onClick={() => handlePushHistory("/AgregarProducto")}>
-          Agregar Productos
-        </button>
+        <Button variant="primary" onClick={handleShow}>
+          Agregar Producto
+      </Button>
         <List items={items} producto={true} className="margin_spaces" />
       </div>
-    </React.Fragment>
+      <AgregarProducto show={show} setShow={setShow} />
+    </React.Fragment >
   );
 };
 
