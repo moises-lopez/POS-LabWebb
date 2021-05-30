@@ -23,7 +23,7 @@ const Ventas = () => {
   }
   return (
     <React.Fragment>
-      <Header currPage="Compra"></Header>
+      <Header currPage="Historial de Ventas"></Header>
       <div className="container margin_spaces">
         <table className="table">
           <tr>

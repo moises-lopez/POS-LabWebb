@@ -1,26 +1,35 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button'
+
+
 import axios from "axios";
-const EditarProducto = () => {
+
+
+const EditarProducto = ({ show, setShow }) => {
   const location = useLocation();
   let [product, setProduct] = useState({});
+  const handleClose = () => setShow(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      let { data } = await axios.get(
-        `http://localhost:5000/api/products/${location.state.id}`
-      );
-      console.log(data[0]);
-      setProduct(data[0]);
-    }
-    fetchData()
-  }, [location]);
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     let { data } = await axios.get(
+  //       `http://localhost:5000/api/products/${location.state.id}`
+  //     );
+  //     console.log(data[0]);
+  //     setProduct(data[0]);
+  //   }
+  //   fetchData()
+  // }, [location]);
 
   const handleChange = (e) => {
     const auxProduct = { ...product };
     auxProduct[e.currentTarget.name] = e.currentTarget.value;
     setProduct(auxProduct);
   };
+
   const editProduct = () => {
     axios.post(
       `http://localhost:5000/api/products/update/${product._id}`,
@@ -29,8 +38,15 @@ const EditarProducto = () => {
   };
 
   return (
-    <React.Fragment>
+    <Modal show={show} onHide={handleClose}>
+      <Modal.Header>
+          <Modal.Title>Editar Producto</Modal.Title>
+      </Modal.Header>
+
+        <Modal.Body>
       <React.Fragment>
+      <React.Fragment>
+
         <input
           id="id"
           type="text"
@@ -71,10 +87,22 @@ const EditarProducto = () => {
           name="quantity"
           onChange={handleChange}
         />
-        <button onClick={editProduct}>Send</button>
+        {/* <button onClick={editProduct}>Send</button> */}
       </React.Fragment>
     </React.Fragment>
-  );
+    </Modal.Body>
+
+    <Modal.Footer>
+      <Button variant="secondary" onClick={handleClose}>
+        Cancelar
+        </Button>
+        <Button variant="primary" onClick={editProduct}>
+          Agregar
+          </Button>
+          </Modal.Footer>
+      
+    </Modal>
+  ); 
 };
 
 export default EditarProducto;

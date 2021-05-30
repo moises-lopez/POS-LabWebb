@@ -1,17 +1,18 @@
 import React from "react";
 import Item from "../components/item";
 
-import Button from 'react-bootstrap/Button'
-
 import "../css/compra.css";
 import "../css/home.css";
+import "../css/tablas.css";
+
+import Table from 'react-bootstrap/Table'
 
 const List = ({ items, producto }) => {
   return (
     <React.Fragment>
       <div className="container margin_spaces">
-        <table className="table">
-          <thead>
+      <Table striped bordered hover>
+      <thead>
             <tr>
               <th>ID</th>
               <th>Nombre</th>
@@ -28,6 +29,7 @@ const List = ({ items, producto }) => {
               )}
             </tr>
           </thead>
+
           <tbody>
             {items.map((item) => (
               <Item
@@ -41,7 +43,8 @@ const List = ({ items, producto }) => {
               />
             ))}
           </tbody>
-        </table>
+
+        </Table>
       </div>
     </React.Fragment>
   );
