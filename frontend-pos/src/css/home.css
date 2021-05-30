@@ -39,6 +39,7 @@ ul.tabs {
   /* border-bottom: 1px solid #333; */
   width: calc(32px + 2em);
   background-color: #acbea3;
+  position: fixed;
 }
 
 ul.tabs li {
@@ -90,6 +91,7 @@ ul.tabs li.active svg {
   background: #fbf8d3;
   /* overflow: auto; */
   font-family: Calibri;
+  margin-left: calc(32px + 2em);
 }
 
 .tab_content {

@@ -6,23 +6,10 @@ import Form from 'react-bootstrap/Form'
 import axios from "axios";
 
 import "../css/producto.css";
-import Row from "./../components/row";
 
 function AgregarProducto({ show, setShow }) {
 
-  // const [setShow] = useState(false);
-  //const reload=()=>window.location.reload();
   const handleClose = () => setShow(false);
-  // const handleShow = () => setShow(true);
-
-  // let [product, setProduct] = useState({});
-
-  // const handleChange = (e) => {
-  //   const auxProduct = { ...product };
-  //   auxProduct[e.currentTarget.name] = e.currentTarget.value;
-  //   setProduct(auxProduct);
-
-  // };
 
   const addProduct = () => {
     console.log(document.querySelector('#form-id').value)
@@ -35,7 +22,7 @@ function AgregarProducto({ show, setShow }) {
     }
     axios.post("http://localhost:5000/api/products/save", product);
     setShow(false);
-    reload();
+    window.location.reload();
   };
 
   return (
