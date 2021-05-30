@@ -7,6 +7,7 @@ import Header from '../components/header'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
+import Button from 'react-bootstrap/Button'
 
 import "../css/compra.css";
 import "../css/home.css";
@@ -97,12 +98,13 @@ const Compra = () => {
           </Col>
           <Col>
             <Nota items={selectedItems} total={total} />
-            <input
+            {/* <input
               type="button"
               onClick={handleVenta}
               className="hacer-compra-btn"
               value="Hacer Compra"
-            />
+            /> */}
+            <Button variant="info" onClick={handleVenta}>Hacer compra</Button>
           </Col>
         </Row>
       </Container>

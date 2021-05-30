@@ -14,7 +14,7 @@ import Login from "./pages/Login";
 import Registro from "./pages/Registro";
 
 function App() {
-  let [currentTab, setCurrentTab] = useState("/Compra");
+  let [currentTab, setCurrentTab] = useState(window.location.pathname);
   let history = useHistory();
 
   let handelTabChange = tab => {
