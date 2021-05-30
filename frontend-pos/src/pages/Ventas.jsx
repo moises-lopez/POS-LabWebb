@@ -34,7 +34,7 @@ const Ventas = () => {
           {ventas.map((venta) => (
             <tr>
               <td>{venta._id}</td>
-              <td>${venta.total}</td>
+              <td>${venta.total.toFixed(2)}</td>
               <td>{venta.arrayProducts.length}</td>
             </tr>
           ))}
