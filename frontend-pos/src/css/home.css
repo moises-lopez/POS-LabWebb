@@ -22,8 +22,7 @@
 }
 
 .main-content {
-  width: 100%;
-  justify-content: space-around;
+  min-height: calc(100vh - 3em);
 }
 
 .column {

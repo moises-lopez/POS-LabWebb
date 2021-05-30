@@ -4,6 +4,9 @@ import axios from "axios";
 import Nota from "../components/nota";
 import List from "../components/list";
 import Header from '../components/header'
+import Container from 'react-bootstrap/Container'
+import Row from 'react-bootstrap/Row'
+import Col from 'react-bootstrap/Col'
 
 import "../css/compra.css";
 import "../css/home.css";
@@ -78,29 +81,31 @@ const Compra = () => {
   return (
     <React.Fragment>
       <Header currPage="Compra"></Header>
-      <div className="container main-content">
-        <div className="column">
-          <input
-            id="cityname"
-            type="text"
-            value={keyword}
-            className="form-control"
-            onChange={handleChange}
-            onKeyDown={handleKeyDown}
-            placeholder="Escanee o busque artículo"
-          />
-          <List items={items} producto={false} className="margin_spaces" />
-        </div>
-        <div className="column">
-          <Nota items={selectedItems} total={total} />
-          <input
-            type="button"
-            onClick={handleVenta}
-            className="hacer-compra-btn"
-            value="Hacer Compra"
-          />
-        </div>
-      </div>
+      <Container className="main-content">
+        <Row>
+          <Col>
+            <input
+              id="cityname"
+              type="text"
+              value={keyword}
+              className="form-control"
+              onChange={handleChange}
+              onKeyDown={handleKeyDown}
+              placeholder="Escanee o busque artículo"
+            />
+            <List items={items} producto={false} className="margin_spaces" />
+          </Col>
+          <Col>
+            <Nota items={selectedItems} total={total} />
+            <input
+              type="button"
+              onClick={handleVenta}
+              className="hacer-compra-btn"
+              value="Hacer Compra"
+            />
+          </Col>
+        </Row>
+      </Container>
     </React.Fragment>
   );
 };
