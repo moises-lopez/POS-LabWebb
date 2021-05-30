@@ -39,7 +39,7 @@ const Productos = () => {
 
   return (
     <React.Fragment>
-      <Header currPage="Compra"></Header>
+      <Header currPage="Productos"></Header>
       <div className="flex-center">
         <Button variant="primary" onClick={handleShow}>
           Agregar Producto

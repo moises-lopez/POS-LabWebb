@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import Modal from 'react-bootstrap/Modal'
 import Button from 'react-bootstrap/Button'
+import Form from 'react-bootstrap/Form'
 
 import axios from "axios";
 
@@ -14,19 +15,27 @@ function AgregarProducto({ show, setShow }) {
   const handleClose = () => setShow(false);
   // const handleShow = () => setShow(true);
 
-  let [product, setProduct] = useState({});
-  
-  const handleChange = (e) => {
-    const auxProduct = { ...product };
-    auxProduct[e.currentTarget.name] = e.currentTarget.value;
-    setProduct(auxProduct);
-    
-  };
+  // let [product, setProduct] = useState({});
+
+  // const handleChange = (e) => {
+  //   const auxProduct = { ...product };
+  //   auxProduct[e.currentTarget.name] = e.currentTarget.value;
+  //   setProduct(auxProduct);
+
+  // };
 
   const addProduct = () => {
+    console.log(document.querySelector('#form-id').value)
+    const product = {
+      '_id': document.querySelector('#form-id').value,
+      'name': document.querySelector('#form-name').value,
+      'unitPrice': document.querySelector('#form-unit-price').value,
+      'category': document.querySelector('#form-category').value,
+      'quantity': document.querySelector('#form-quantity').value,
+    }
     axios.post("http://localhost:5000/api/products/save", product);
     setShow(false);
-    //reload();
+    reload();
   };
 
   return (
@@ -36,39 +45,29 @@ function AgregarProducto({ show, setShow }) {
           <Modal.Title>Agregar Producto</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-
-          <Row
-            label="ID"
-            name="_id"
-            value={product._id}
-            handleChange={handleChange}
-          />
-           <Row
-            label="Nombre del producto"
-            name="name"
-            value={product._name}
-            handleChange={handleChange}
-          />
-           <Row
-            label="Precio por unidad"
-            name="unitPrice"
-            value={product.unitPrice}
-            handleChange={handleChange}
-          />
-          <Row
-            label="Categoría"
-            name="category"
-            value={product.category}
-            handleChange={handleChange}
-          />
-          
-          <Row
-            label="Cantidad"
-            name="quantity"
-            value={product.quantity}
-            handleChange={handleChange}
-          />
-          </Modal.Body>
+          <Form>
+            <Form.Group controlId="form-id">
+              <Form.Label>ID</Form.Label>
+              <Form.Control type="text" placeholder="_id" />
+            </Form.Group>
+            <Form.Group controlId="form-name">
+              <Form.Label>Nombre del producto</Form.Label>
+              <Form.Control type="text" placeholder="Nombre del producto" />
+            </Form.Group>
+            <Form.Group controlId="form-unit-price">
+              <Form.Label>Precio por unidad</Form.Label>
+              <Form.Control type="number" step="0.01" placeholder="Precio por unidad" />
+            </Form.Group>
+            <Form.Group controlId="form-category">
+              <Form.Label>Categoría</Form.Label>
+              <Form.Control type="text" placeholder="Categoría" />
+            </Form.Group>
+            <Form.Group controlId="form-quantity">
+              <Form.Label>Cantidad</Form.Label>
+              <Form.Control type="number" step="11" placeholder="Cantidadd" />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
             Cancelar

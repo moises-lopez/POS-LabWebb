@@ -7,7 +7,7 @@
   pointer-events: none;
 }
 
-.container {
+.flex-container {
   display: flex;
 }
 
