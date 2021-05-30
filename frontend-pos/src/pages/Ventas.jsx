@@ -23,7 +23,7 @@ const Ventas = () => {
   }
   return (
     <React.Fragment>
-      <Header currPage="Compra"></Header>
+      <Header currPage="Ventas"></Header>
       <div className="container margin_spaces">
         <table className="table">
           <tr>
@@ -34,7 +34,7 @@ const Ventas = () => {
           {ventas.map((venta) => (
             <tr>
               <td>{venta._id}</td>
-              <td>${venta.total}</td>
+              <td>${venta.total.toFixed(2)}</td>
               <td>{venta.arrayProducts.length}</td>
             </tr>
           ))}

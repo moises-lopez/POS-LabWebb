@@ -12,7 +12,7 @@ const Item = ({ ID, nombre, precio, cantidad, categoria, producto }) => {
     <tr>
       <td>{ID}</td>
       <td>{nombre}</td>
-      <td>{precio}</td>
+      <td>${parseFloat(precio).toFixed(2)}</td>
       <td>{cantidad}</td>
       <td>{categoria}</td>
       {producto ? (

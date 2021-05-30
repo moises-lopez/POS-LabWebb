@@ -10,9 +10,8 @@ import Ventas from "./pages/Ventas";
 import AgregarProducto from "./pages/AgregarProducto";
 import TabsBar from "./components/tabsbar";
 import EditarProducto from "./pages/EditarProducto";
-import Login from "./pages/Login"
-import Registro from "./pages/Registro"
-
+import Login from "./pages/Login";
+import Registro from "./pages/Registro";
 
 function App() {
   let [currentTab, setCurrentTab] = useState("/Compra");
@@ -25,7 +24,7 @@ function App() {
 
   return (
     <React.Fragment>
-      <div className="container">
+      <div className="flex-container">
         <TabsBar tab={currentTab} handelTabChange={handelTabChange} />
         <div className="tab_container flex-center">
           <div className="center_item">
@@ -40,7 +39,6 @@ function App() {
               <Redirect from="/" to={"/Login"} />
             </Switch>
           </div>
-
         </div>
       </div>
     </React.Fragment>
