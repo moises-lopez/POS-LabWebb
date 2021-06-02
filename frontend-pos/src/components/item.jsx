@@ -13,6 +13,11 @@ const Item = ({ ID, nombre, precio, cantidad, categoria, producto }) => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const deleteProduct = async () => {
+    await axios.post(`http://localhost:5000/api/products/delete/${ID}`);
+    window.location.reload();
+  }
+
   let history = useHistory();
   let handlePushHistory = (url) => {
     history.push({ pathname: url, state: { id: ID } });
@@ -28,20 +33,20 @@ const Item = ({ ID, nombre, precio, cantidad, categoria, producto }) => {
       {producto ? (
         <React.Fragment>
           <td>
-          <Button variant="primary" onClick={handleShow}>
-          Editar
+            <Button variant="primary" onClick={handleShow}>
+              Editar
           </Button>
-          <EditarProducto show={show} setShow={setShow} />
+            <EditarProducto show={show} setShow={setShow} pid={ID} />
             {/* <Button variant="outline-info" onClick={(handleShow) => handlePushHistory("/EditarProducto")}>
               Editar 
             </Button> */}
           </td>
           <td>
-            <Button variant="outline-info"> Borrar </Button>
+            <Button variant="outline-info" onClick={deleteProduct}> Borrar </Button>
           </td>
         </React.Fragment>
       ) : (
-        <div />
+        <React.Fragment></React.Fragment>
       )}
     </tr>
   );

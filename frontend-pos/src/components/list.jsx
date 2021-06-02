@@ -11,8 +11,8 @@ const List = ({ items, producto }) => {
   return (
     <React.Fragment>
       <div className="container margin_spaces">
-      <Table striped bordered hover>
-      <thead>
+        <Table striped bordered hover>
+          <thead>
             <tr>
               <th>ID</th>
               <th>Nombre</th>
@@ -25,7 +25,7 @@ const List = ({ items, producto }) => {
                   <th>Borrar</th>
                 </React.Fragment>
               ) : (
-                <div />
+                <React.Fragment></React.Fragment>
               )}
             </tr>
           </thead>

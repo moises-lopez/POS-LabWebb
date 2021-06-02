@@ -12,7 +12,6 @@ function AgregarProducto({ show, setShow }) {
   const handleClose = () => setShow(false);
 
   const addProduct = () => {
-    console.log(document.querySelector('#form-id').value)
     const product = {
       '_id': document.querySelector('#form-id').value,
       'name': document.querySelector('#form-name').value,
@@ -51,7 +50,7 @@ function AgregarProducto({ show, setShow }) {
             </Form.Group>
             <Form.Group controlId="form-quantity">
               <Form.Label>Cantidad</Form.Label>
-              <Form.Control type="number" step="11" placeholder="Cantidadd" />
+              <Form.Control type="number" step="1" placeholder="Cantidad" />
             </Form.Group>
           </Form>
         </Modal.Body>

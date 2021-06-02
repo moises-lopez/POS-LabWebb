@@ -40,7 +40,7 @@ const Productos = () => {
   return (
     <React.Fragment>
       <Header currPage="Productos"></Header>
-      <div className="flex-center">
+      <div className="main-content">
         <Button variant="primary" onClick={handleShow}>
           Agregar Producto
       </Button>

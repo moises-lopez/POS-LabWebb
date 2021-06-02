@@ -39,7 +39,7 @@ const Registro = () => {
 
   const history = useHistory();
 
-  
+
   const handleRegistro = () => {
     const params = {
       email: email,
@@ -48,15 +48,15 @@ const Registro = () => {
     axios.post("http://localhost:5000/api/login/registro", params)
   }
 
-  const handleRedirectLogin = () =>{ 
-    let path = `/Login`; 
+  const handleRedirectLogin = () => {
+    let path = `/Login`;
     history.push(path);
   }
 
 
 
   return (
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className="main-content">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>
