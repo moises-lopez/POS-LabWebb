@@ -34,17 +34,17 @@ const Nota = ({ items, total }) => {
         <div className="total total_size margin_spaces">
           <tr>
             <td>Subtotal:</td>
-            <td>${(total).toFixed(2)}</td>
+            <td>${(total / 1.16).toFixed(2)}</td>
           </tr>
 
           <tr>
-            <td>Impuesto</td>
-            <td>${(total * 0.16).toFixed(2)}</td>
+            <td>IVA</td>
+            <td>${(total * 0.137931).toFixed(2)}</td>
           </tr>
 
           <tr>
             <td>Total</td>
-            <td>${(total * 1.16).toFixed(2)}</td>
+            <td>${(total).toFixed(2)}</td>
           </tr>
         </div>
       </div>

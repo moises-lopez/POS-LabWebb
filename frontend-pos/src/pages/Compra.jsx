@@ -56,6 +56,11 @@ const Compra = () => {
         let { data } = await axios.get(
           `http://localhost:5000/api/products/${idEntered}`
         );
+        if (!data.length) {
+          e.target.value = ''
+          console.error('Invalid ID');
+          return;
+        }
         data = data[0];
         newItems.push({
           _id: data._id,
