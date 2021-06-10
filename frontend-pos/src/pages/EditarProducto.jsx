@@ -11,26 +11,8 @@ import axios from "axios";
 
 const EditarProducto = ({ show, setShow, pid }) => {
   const location = useLocation();
-  // let [product, setProduct] = useState({});
   const handleClose = () => setShow(false);
   let [productData, setProductData] = useState([])
-
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     let { data } = await axios.get(
-  //       `http://localhost:5000/api/products/${location.state.id}`
-  //     );
-  //     console.log(data[0]);
-  //     setProduct(data[0]);
-  //   }
-  //   fetchData()
-  // }, [location]);
-
-  // const handleChange = (e) => {
-  //   const auxProduct = { ...product };
-  //   auxProduct[e.currentTarget.name] = e.currentTarget.value;
-  //   setProduct(auxProduct);
-  // };
 
   const getProductInfo = async () => {
     return await axios.get(`http://localhost:5000/api/products/${pid}`)

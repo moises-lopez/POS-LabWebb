@@ -11,8 +11,8 @@ const List = ({ items, producto }) => {
   return (
     <React.Fragment>
       <div className="container margin_spaces">
-        <Table striped bordered hover>
-          <thead>
+        <table>
+        <thead>
             <tr>
               <th>ID</th>
               <th>Nombre</th>
@@ -29,7 +29,6 @@ const List = ({ items, producto }) => {
               )}
             </tr>
           </thead>
-
           <tbody>
             {items.map((item) => (
               <Item
@@ -43,6 +42,11 @@ const List = ({ items, producto }) => {
               />
             ))}
           </tbody>
+        </table>
+        <Table striped bordered hover>
+          
+
+          
 
         </Table>
       </div>
