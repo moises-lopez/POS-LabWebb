@@ -8,6 +8,9 @@ import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Button from 'react-bootstrap/Button'
+import InputGroup from 'react-bootstrap/InputGroup'
+import FormControl from 'react-bootstrap/FormControl'
+import Alert from 'react-bootstrap/Alert'
 
 import "../css/compra.css";
 import "../css/home.css";
@@ -18,6 +21,8 @@ const Compra = () => {
   let [items, setItems] = useState([]);
 
   let [selectedItems, setSelectedItems] = useState([]);
+
+  let mensajeError = ''
 
   const calculateTotal = useCallback(() => {
     let auxTotal = 0;
@@ -47,21 +52,31 @@ const Compra = () => {
     setKeyword(e.target.value);
   };
 
+  const showAlert = (msg) => {
+    const alerta = document.querySelector('#alerta')
+    alerta.textContent = msg
+    alerta.classList.remove('d-none');
+    setTimeout(() => {
+      alerta.classList.add('d-none')
+    }, 3000);
+  }
+
   const handleKeyDown = async (e) => {
     if (e.key === "Enter") {
       let idEntered = e.target.value;
       let newItems = [...selectedItems];
+      let { data } = await axios.get(
+        `http://localhost:5000/api/products/${idEntered}`
+      );
+      if (!data.length) {
+        e.target.value = ''
+        showAlert(`ID inválido`);
+        return;
+      }
+      data = data[0];
 
       if (!selectedItems.some((e) => e._id === idEntered)) {
-        let { data } = await axios.get(
-          `http://localhost:5000/api/products/${idEntered}`
-        );
-        if (!data.length) {
-          e.target.value = ''
-          console.error('Invalid ID');
-          return;
-        }
-        data = data[0];
+        // console.log(data)
         newItems.push({
           _id: data._id,
           name: data.name,
@@ -71,6 +86,10 @@ const Compra = () => {
         });
       } else {
         let index = newItems.findIndex((element) => element._id === idEntered);
+        if (data.quantity === newItems[index].quantity) {
+          showAlert(`No hay suficiente producto en el inventario`)
+          return
+        }
         newItems[index].quantity++;
       }
       setSelectedItems(newItems);
@@ -84,21 +103,32 @@ const Compra = () => {
     axios.post("http://localhost:5000/api/sales/save", dataSale);
   };
 
+  const clearInput = () => {
+    document.querySelector('#id-input').value = ''
+  }
+
   return (
     <React.Fragment>
       <Header currPage="Compra"></Header>
+      <Alert variant="danger" id="alerta" className="d-none">
+        {/* {mensajeError} */}
+      </Alert>
       <Container className="main-content">
         <Row>
           <Col>
-            <input
-              id="cityname"
-              type="text"
-              value={keyword}
-              className="form-control"
-              onChange={handleChange}
-              onKeyDown={handleKeyDown}
-              placeholder="Escanee o busque artículo"
-            />
+            <InputGroup className="mb-3">
+              <FormControl
+                id="id-input"
+                placeholder="ID del artículo"
+                aria-label="ID del artículo"
+                aria-describedby="basic-addon2"
+                onChange={handleChange}
+                onKeyDown={handleKeyDown}
+              />
+              <InputGroup.Append>
+                <Button variant="danger" onClick={clearInput}>X</Button>
+              </InputGroup.Append>
+            </InputGroup>
             <List items={items} producto={false} className="margin_spaces" />
           </Col>
           <Col>
