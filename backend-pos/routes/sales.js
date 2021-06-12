@@ -16,6 +16,40 @@ router.get("/", (req, res) => {
     });
 });
 
+const aggregateVentasHoy = async () => {
+  var start = new Date();
+  start.setHours(0, 0, 0, 0);
+
+  var end = new Date();
+  end.setHours(23, 59, 59, 999);
+
+  const agg = await Sale.aggregate([
+    { $match: { createdAt: { $gte: start, $lte: end } } },
+    {
+      $group: {
+        _id: null,
+        "Total sales": {
+          $sum: "$total",
+        },
+      },
+    },
+  ]);
+  return agg[0]["Total sales"];
+};
+
+router.get("/salesToday", async (req, res) => {
+  res.json(await aggregateVentasHoy());
+
+  // Sale.find({})
+  //   .then((data) => {
+  //     console.log("Sale: ", data);
+  //     res.json(data);
+  //   })
+  //   .catch((error) => {
+  //     console.log("error: Something broke");
+  //   });
+});
+
 router.post("/save", (req, res) => {
   const data = req.body;
 
