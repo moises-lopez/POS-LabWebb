@@ -42,34 +42,33 @@ const Login = () => {
   const [redirect, setRedirect] = useState(false)
 
 
-  
+
   const handleLogin = async () => {
     const params = {
       email: email,
       contrasenia: contrasenia,
     }
-    const {data} = await axios.post("http://localhost:5000/api/login/login", params)
+    const { data } = await axios.post("http://localhost:5000/api/login/login", params)
     console.log(data)
-    if(data){
-      
+    if (data) {
+
       setRedirect(true);
     }
   }
 
-  const handleRedirectRegistro = () =>{ 
-    let path = `/Registro`; 
+  const handleRedirectRegistro = () => {
+    let path = `/Registro`;
     history.push(path);
   }
 
 
   if (redirect) {
     console.log("HOLA")
-    return <Redirect to='/Compra'/>;
+    return <Redirect to='/Compra' />;
   }
 
   return (
-    
-    <Container component="main" maxWidth="xs">
+    <Container component="main" maxWidth="xs" className="main-content">
       <CssBaseline />
       <div className={classes.paper}>
         <Avatar className={classes.avatar}>

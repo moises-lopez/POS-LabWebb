@@ -1,4 +1,4 @@
-import React, { useState, useEffect, Component } from "react";
+import React, { useState, useEffect } from "react";
 import Header from "../components/header";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
@@ -25,7 +25,6 @@ const Ventas = () => {
     }
     fetchData();
   }, []);
-  let a = "test";
 
   if (loading) {
     return <div>LOADING</div>;
@@ -60,6 +59,7 @@ const Ventas = () => {
         </Button>
         {ventasHoy && ventasComponent()}
       </div>
+      <Header currPage="Historial de Ventas"></Header>
       <div className="container margin_spaces">
         <table className="table">
           <tr>
@@ -70,8 +70,11 @@ const Ventas = () => {
           </tr>
           {ventas.map((venta) => (
             <tr>
+
               <td>{venta.createdAt}</td>
               <td>${venta.total}</td>
+              <td>{venta._id}</td>
+              <td>${venta.total.toFixed(2)}</td>
               <td>{venta.arrayProducts.length}</td>
               <td>
                 {venta.arrayProducts.map((articulo) => (

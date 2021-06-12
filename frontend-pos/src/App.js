@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 
+import "bootstrap/dist/css/bootstrap.min.css";
 import "./css/home.css";
 
 import Compra from "./pages/Compra";
@@ -9,12 +10,11 @@ import Ventas from "./pages/Ventas";
 import AgregarProducto from "./pages/AgregarProducto";
 import TabsBar from "./components/tabsbar";
 import EditarProducto from "./pages/EditarProducto";
-import Login from "./pages/Login"
-import Registro from "./pages/Registro"
-
+import Login from "./pages/Login";
+import Registro from "./pages/Registro";
 
 function App() {
-  let [currentTab, setCurrentTab] = useState("/Compra");
+  let [currentTab, setCurrentTab] = useState(window.location.pathname);
   let history = useHistory();
 
   let handelTabChange = tab => {
@@ -24,7 +24,7 @@ function App() {
 
   return (
     <React.Fragment>
-      <div class="container">
+      <div className="flex-container">
         <TabsBar tab={currentTab} handelTabChange={handelTabChange} />
         <div className="tab_container flex-center">
           <div className="center_item">
@@ -39,7 +39,6 @@ function App() {
               <Redirect from="/" to={"/Login"} />
             </Switch>
           </div>
-
         </div>
       </div>
     </React.Fragment>
