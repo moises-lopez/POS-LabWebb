@@ -1,44 +1,54 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
-import Modal from 'react-bootstrap/Modal';
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
-
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { useHistory } from "react-router-dom";
 
 import axios from "axios";
-
+import { API_URL } from "../constants.js";
 
 const EditarProducto = ({ show, setShow, pid }) => {
   const location = useLocation();
   const handleClose = () => setShow(false);
-  let [productData, setProductData] = useState([])
-
+  let [productData, setProductData] = useState([]);
+  const history = useHistory();
+  useEffect(async () => {
+    try {
+      const response = await axios.get(`${API_URL}api/login/autorizacion`, {
+        headers: {
+          token: localStorage.getItem("TOKEN"),
+        },
+      });
+      console.log(response.status);
+    } catch (e) {
+      console.log("loby");
+      history.push("/Login");
+    }
+  }, []);
   const getProductInfo = async () => {
-    return await axios.get(`http://localhost:5000/api/products/${pid}`)
-  }
+    return await axios.get(`${API_URL}api/products/${pid}`);
+  };
 
   useEffect(() => {
     const fetchData = async () => {
       let { data } = await getProductInfo();
       setProductData(data[0]);
-    }
-    fetchData()
-  }, [])
+    };
+    fetchData();
+  }, []);
 
   const editProduct = () => {
     const product = {
-      '_id': document.querySelector('#form-id').value,
-      'name': document.querySelector('#form-name').value,
-      'unitPrice': document.querySelector('#form-unit-price').value,
-      'category': document.querySelector('#form-category').value,
-      'quantity': document.querySelector('#form-quantity').value,
-    }
-    axios.post(
-      `http://localhost:5000/api/products/update/${pid}`,
-      product
-    );
-    setShow(false)
+      _id: document.querySelector("#form-id").value,
+      name: document.querySelector("#form-name").value,
+      unitPrice: document.querySelector("#form-unit-price").value,
+      category: document.querySelector("#form-category").value,
+      quantity: document.querySelector("#form-quantity").value,
+    };
+    axios.post(`${API_URL}products/update/${pid}`, product);
+    setShow(false);
     window.location.reload();
   };
 
@@ -60,7 +70,11 @@ const EditarProducto = ({ show, setShow, pid }) => {
           </Form.Group>
           <Form.Group controlId="form-unit-price">
             <Form.Label>Precio por unidad</Form.Label>
-            <Form.Control type="number" step="0.01" defaultValue={productData.unitPrice} />
+            <Form.Control
+              type="number"
+              step="0.01"
+              defaultValue={productData.unitPrice}
+            />
           </Form.Group>
           <Form.Group controlId="form-category">
             <Form.Label>Categoría</Form.Label>
@@ -68,7 +82,11 @@ const EditarProducto = ({ show, setShow, pid }) => {
           </Form.Group>
           <Form.Group controlId="form-quantity">
             <Form.Label>Cantidad</Form.Label>
-            <Form.Control type="number" step="1" defaultValue={productData.quantity} />
+            <Form.Control
+              type="number"
+              step="1"
+              defaultValue={productData.quantity}
+            />
           </Form.Group>
         </Form>
       </Modal.Body>
@@ -79,9 +97,8 @@ const EditarProducto = ({ show, setShow, pid }) => {
         </Button>
         <Button variant="primary" onClick={editProduct}>
           Guardar
-          </Button>
+        </Button>
       </Modal.Footer>
-
     </Modal>
   );
 };

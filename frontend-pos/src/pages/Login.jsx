@@ -1,31 +1,30 @@
 import React, { useState } from "react";
-import Avatar from '@material-ui/core/Avatar';
-import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Container from '@material-ui/core/Container';
-import axios from 'axios';
-import { Redirect } from 'react-router'
+import Avatar from "@material-ui/core/Avatar";
+import Button from "@material-ui/core/Button";
+import CssBaseline from "@material-ui/core/CssBaseline";
+import TextField from "@material-ui/core/TextField";
+import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import Typography from "@material-ui/core/Typography";
+import { makeStyles } from "@material-ui/core/styles";
+import Container from "@material-ui/core/Container";
+import axios from "axios";
+import { Redirect } from "react-router";
 import { useHistory } from "react-router-dom";
-
-
+import { API_URL } from "../constants.js";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
     marginTop: theme.spacing(8),
-    display: 'flex',
-    flexDirection: 'column',
-    alignItems: 'center',
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: "100%", // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   submit: {
@@ -39,32 +38,28 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [contrasenia, setContrasenia] = useState("");
-  const [redirect, setRedirect] = useState(false)
-
-
+  const [redirect, setRedirect] = useState(false);
 
   const handleLogin = async () => {
     const params = {
       email: email,
       contrasenia: contrasenia,
-    }
-    const { data } = await axios.post("http://localhost:5000/api/login/login", params)
-    console.log(data)
+    };
+    const { data } = await axios.post(`${API_URL}api/login/login`, params);
     if (data) {
-
+      localStorage.setItem("TOKEN", data);
       setRedirect(true);
     }
-  }
+  };
 
   const handleRedirectRegistro = () => {
     let path = `/Registro`;
     history.push(path);
-  }
-
+  };
 
   if (redirect) {
-    console.log("HOLA")
-    return <Redirect to='/Compra' />;
+    console.log("HOLA");
+    return <Redirect to="/Compra" />;
   }
 
   return (
@@ -112,20 +107,10 @@ const Login = () => {
           >
             Ingresar
           </Button>
-          <Button
-            //type="submit"
-            onClick={() => handleRedirectRegistro()}
-            fullWidth
-            variant="contained"
-            color="primary"
-            className={classes.submit}
-          >
-            No registrado?
-          </Button>
         </form>
       </div>
     </Container>
   );
-}
+};
 
 export default Login;

@@ -1,25 +1,43 @@
-import React, { useState } from "react";
-import Modal from 'react-bootstrap/Modal'
-import Button from 'react-bootstrap/Button'
-import Form from 'react-bootstrap/Form'
+import React, { useState, useEffect } from "react";
+import Modal from "react-bootstrap/Modal";
+import Button from "react-bootstrap/Button";
+import Form from "react-bootstrap/Form";
+import { useHistory } from "react-router-dom";
+import { API_URL } from "../constants.js";
 
 import axios from "axios";
 
 import "../css/producto.css";
-
 function AgregarProducto({ show, setShow }) {
-
   const handleClose = () => setShow(false);
+
+  const history = useHistory();
+  useEffect(async () => {
+    try {
+      const response = await axios.get(`${API_URL}api/login/autorizacion`, {
+        headers: {
+          token: localStorage.getItem("TOKEN"),
+        },
+      });
+      console.log(response.status);
+    } catch (e) {
+      console.log("loby");
+      history.push("/Login");
+    }
+  }, []);
 
   const addProduct = () => {
     const product = {
-      '_id': document.querySelector('#form-id').value,
-      'name': document.querySelector('#form-name').value,
-      'unitPrice': document.querySelector('#form-unit-price').value,
-      'category': document.querySelector('#form-category').value,
-      'quantity': document.querySelector('#form-quantity').value,
-    }
-    axios.post("http://localhost:5000/api/products/save", product);
+      _id: document.querySelector("#form-id").value,
+      name: document.querySelector("#form-name").value,
+      unitPrice: document.querySelector("#form-unit-price").value,
+      category: document.querySelector("#form-category").value,
+      quantity: document.querySelector("#form-quantity").value,
+    };
+    axios.post(
+      `https://arcane-plains-14964.herokuapp.comapi/products/save`,
+      product
+    );
     setShow(false);
     window.location.reload();
   };
@@ -42,7 +60,11 @@ function AgregarProducto({ show, setShow }) {
             </Form.Group>
             <Form.Group controlId="form-unit-price">
               <Form.Label>Precio por unidad</Form.Label>
-              <Form.Control type="number" step="0.01" placeholder="Precio por unidad" />
+              <Form.Control
+                type="number"
+                step="0.01"
+                placeholder="Precio por unidad"
+              />
             </Form.Group>
             <Form.Group controlId="form-category">
               <Form.Label>Categoría</Form.Label>
@@ -63,7 +85,6 @@ function AgregarProducto({ show, setShow }) {
           </Button>
         </Modal.Footer>
       </Modal>
-
     </>
   );
 }

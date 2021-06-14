@@ -3,11 +3,13 @@ import axios from "axios";
 
 import Nota from "../components/nota";
 import List from "../components/list";
-import Header from '../components/header'
-import Container from 'react-bootstrap/Container'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import Button from 'react-bootstrap/Button'
+import Header from "../components/header";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Button from "react-bootstrap/Button";
+import { useHistory } from "react-router-dom";
+import { API_URL } from "../constants.js";
 
 import "../css/compra.css";
 import "../css/home.css";
@@ -27,20 +29,35 @@ const Compra = () => {
     setTotal(auxTotal);
   }, [selectedItems]);
 
+  const history = useHistory();
+  useEffect(async () => {
+    try {
+      const response = await axios.get(`${API_URL}api/login/autorizacion`, {
+        headers: {
+          token: localStorage.getItem("TOKEN"),
+        },
+      });
+      console.log(response.status);
+    } catch (e) {
+      console.log("loby");
+      history.push("/Login");
+    }
+  }, []);
+
   useEffect(() => {
     calculateTotal();
   }, [selectedItems, calculateTotal]);
 
   const getData = async () => {
-    return await axios.get("http://localhost:5000/api/products/");
+    return await axios.get(`${API_URL}api/products/`);
   };
 
   useEffect(() => {
     const fetchData = async () => {
       let { data } = await getData();
       setItems(data);
-    }
-    fetchData()
+    };
+    fetchData();
   }, []);
 
   const handleChange = (e) => {
@@ -51,14 +68,13 @@ const Compra = () => {
     if (e.key === "Enter") {
       let idEntered = e.target.value;
       let newItems = [...selectedItems];
+      setKeyword("");
 
       if (!selectedItems.some((e) => e._id === idEntered)) {
-        let { data } = await axios.get(
-          `http://localhost:5000/api/products/${idEntered}`
-        );
+        let { data } = await axios.get(`${API_URL}api/products/${idEntered}`);
         if (!data.length) {
-          e.target.value = ''
-          console.error('Invalid ID');
+          e.target.value = "";
+          console.error("Invalid ID");
           return;
         }
         data = data[0];
@@ -81,7 +97,9 @@ const Compra = () => {
       total: total,
       arrayProducts: selectedItems,
     };
-    axios.post("http://localhost:5000/api/sales/save", dataSale);
+    axios.post(`${API_URL}api/sales/save`, dataSale);
+    setKeyword("");
+    setSelectedItems([]);
   };
 
   return (
@@ -103,13 +121,9 @@ const Compra = () => {
           </Col>
           <Col>
             <Nota items={selectedItems} total={total} />
-            {/* <input
-              type="button"
-              onClick={handleVenta}
-              className="hacer-compra-btn"
-              value="Hacer Compra"
-            /> */}
-            <Button variant="info" onClick={handleVenta}>Hacer compra</Button>
+            <Button variant="info" onClick={handleVenta}>
+              Hacer compra
+            </Button>
           </Col>
         </Row>
       </Container>

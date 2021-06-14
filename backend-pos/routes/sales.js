@@ -31,12 +31,12 @@ const getVentasSemanal = async (week) => {
         month: "2-digit",
         year: "numeric",
       }),
-      ventas: ventaDia,
+      ventas: ventaDia.toFixed(2),
     });
     start = start.subtract(1, "day");
     end = end.subtract(1, "day");
   }
-  return ventasSemanal;
+  return ventasSemanal.reverse();
 };
 
 const aggregateVentasHoy = async (start, end) => {
@@ -73,7 +73,9 @@ router.get("/salesWeekly", async (req, res) => {
 
 router.get("/salesToday", async (req, res) => {
   console.log("HLO");
-  res.json(await aggregateVentasHoy());
+  let start = moment().startOf("day");
+  let end = moment().endOf("day");
+  res.json(await aggregateVentasHoy(start.toDate(), end.toDate()));
 
   // Sale.find({})
   //   .then((data) => {

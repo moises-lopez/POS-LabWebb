@@ -12,12 +12,13 @@ import TabsBar from "./components/tabsbar";
 import EditarProducto from "./pages/EditarProducto";
 import Login from "./pages/Login";
 import Registro from "./pages/Registro";
+import ReporteVentas from "./pages/ReporteVentas";
 
 function App() {
   let [currentTab, setCurrentTab] = useState(window.location.pathname);
   let history = useHistory();
 
-  let handelTabChange = tab => {
+  let handelTabChange = (tab) => {
     setCurrentTab(tab);
     history.push(tab);
   };
@@ -36,6 +37,8 @@ function App() {
               <Route path="/Ventas" component={Ventas} />
               <Route path="/AgregarProducto" component={AgregarProducto} />
               <Route path="/EditarProducto" component={EditarProducto} />
+              <Route path="/Reporte" component={ReporteVentas} />
+
               <Redirect from="/" to={"/Login"} />
             </Switch>
           </div>

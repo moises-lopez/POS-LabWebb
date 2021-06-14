@@ -2,25 +2,40 @@ import React, { useState, useEffect } from "react";
 import Header from "../components/header";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import { useHistory } from "react-router-dom";
+import { API_URL } from "../constants.js";
+
 const Ventas = () => {
   let [ventas, setVentas] = useState([]);
   let [loading, setLoading] = useState(true);
-  let [ventasHoy, setVentasHoy] = useState();
+  let [ventasHoy, setVentasHoy] = useState(0);
+  const history = useHistory();
 
   const getData = async () => {
-    return await axios.get("http://localhost:5000/api/sales/");
+    return await axios.get(`${API_URL}api/sales/`);
   };
 
   const getVentasHoy = async () => {
-    return await axios.get("http://localhost:5000/api/sales/salesToday");
+    return await axios.get(`${API_URL}api/sales/salesToday`);
   };
 
-  useEffect(() => {
+  useEffect(async () => {
+    try {
+      const response = await axios.get(`${API_URL}api/login/autorizacion`, {
+        headers: {
+          token: localStorage.getItem("TOKEN"),
+        },
+      });
+      console.log(response.status);
+    } catch (e) {
+      console.log("loby");
+      history.push("/Login");
+    }
     async function fetchData() {
       setLoading(true);
       let { data } = await getData();
       console.log(data);
-      setVentas(data);
+      setVentas(data.reverse());
       setLoading(false);
     }
     fetchData();
@@ -48,7 +63,7 @@ const Ventas = () => {
 
   return (
     <React.Fragment>
-      <Header currPage="Compra"></Header>
+      <Header currPage="Historial de Ventas"></Header>
       <div className="corte">
         <Button
           onClick={() => handleVentasHoy()}
@@ -59,7 +74,6 @@ const Ventas = () => {
         </Button>
         {ventasHoy && ventasComponent()}
       </div>
-      <Header currPage="Historial de Ventas"></Header>
       <div className="container margin_spaces">
         <table className="table">
           <tr>
@@ -70,10 +84,7 @@ const Ventas = () => {
           </tr>
           {ventas.map((venta) => (
             <tr>
-
               <td>{venta.createdAt}</td>
-              <td>${venta.total}</td>
-              <td>{venta._id}</td>
               <td>${venta.total.toFixed(2)}</td>
               <td>{venta.arrayProducts.length}</td>
               <td>
