@@ -26,7 +26,7 @@ function AgregarProducto({ show, setShow }) {
     }
   }, []);
 
-  const addProduct = () => {
+  const addProduct = async () => {
     const product = {
       _id: document.querySelector("#form-id").value,
       name: document.querySelector("#form-name").value,
@@ -34,10 +34,8 @@ function AgregarProducto({ show, setShow }) {
       category: document.querySelector("#form-category").value,
       quantity: document.querySelector("#form-quantity").value,
     };
-    axios.post(
-      `https://arcane-plains-14964.herokuapp.comapi/products/save`,
-      product
-    );
+    await axios.post(`${API_URL}api/products/save`, product);
+    console.log("HOLA?", product);
     setShow(false);
     window.location.reload();
   };

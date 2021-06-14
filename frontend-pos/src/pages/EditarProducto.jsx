@@ -39,7 +39,7 @@ const EditarProducto = ({ show, setShow, pid }) => {
     fetchData();
   }, []);
 
-  const editProduct = () => {
+  const editProduct = async () => {
     const product = {
       _id: document.querySelector("#form-id").value,
       name: document.querySelector("#form-name").value,
@@ -47,7 +47,7 @@ const EditarProducto = ({ show, setShow, pid }) => {
       category: document.querySelector("#form-category").value,
       quantity: document.querySelector("#form-quantity").value,
     };
-    axios.post(`${API_URL}products/update/${pid}`, product);
+    await axios.post(`${API_URL}api/products/update/${pid}`, product);
     setShow(false);
     window.location.reload();
   };
