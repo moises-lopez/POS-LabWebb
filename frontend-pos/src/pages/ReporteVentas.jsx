@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
-import Header from '../components/header'
+import Header from "../components/header";
 import { ResponsiveBar } from "@nivo/bar";
 import { useHistory } from "react-router-dom";
 import { API_URL } from "../constants.js";
@@ -37,6 +37,10 @@ const ReporteVentas = () => {
     width: 900,
     height: 900,
   };
+  const myStyle2 = {
+    width: 900,
+    height: 100,
+  };
 
   const handleButton = async (displacement) => {
     setCurrentWeek(currentWeek + displacement);
@@ -45,7 +49,9 @@ const ReporteVentas = () => {
 
   return (
     <div style={myStyle}>
-      <Header currPage="Reporte semanal"></Header>
+      <div style={myStyle2}>
+        <Header currPage="Reporte semanal"></Header>
+      </div>
       <Button onClick={() => handleButton(1)}>Semana anterior</Button>
       <Button onClick={() => handleButton(-1)}>Semana Posterior</Button>
 
@@ -53,7 +59,7 @@ const ReporteVentas = () => {
         data={data}
         keys={["ventas"]}
         indexBy="fecha"
-        margin={{ top: 50, right: 130, bottom: 50, left: 60 }}
+        margin={{ top: 50, right: 130, bottom: 200, left: 60 }}
         padding={0.3}
         valueScale={{ type: "linear" }}
         indexScale={{ type: "band", round: true }}

@@ -8,15 +8,25 @@ const Sale = require("../models/sales.model");
 const idFilter = (req) => (list) => list._id === parseInt(req.params.id);
 
 // Routes
-router.get("/", (req, res) => {
-  Sale.find({})
-    .then((data) => {
-      console.log("Sale: ", data);
-      res.json(data);
-    })
-    .catch((error) => {
-      console.log("error: Something broke");
-    });
+router.get("/", async (req, res) => {
+  let sales = await Sale.find({});
+  sales = sales.map((sale) => {
+    const newDate = moment(sale.createdAt);
+    console.log(newDate);
+    return {
+      arrayProducts: sale.arrayProducts,
+      total: sale.total,
+      createdAt: newDate.toDate().toLocaleDateString("es-MX", {
+        day: "2-digit",
+        month: "2-digit",
+        year: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+      }),
+    };
+  });
+  console.log(sales);
+  res.json(sales);
 });
 const getVentasSemanal = async (week) => {
   let start = moment().subtract(week, "week").startOf("day");
@@ -26,7 +36,7 @@ const getVentasSemanal = async (week) => {
     console.log(start);
     const ventaDia = await aggregateVentasHoy(start.toDate(), end.toDate());
     ventasSemanal.push({
-      fecha: start.toDate().toLocaleDateString("en-US", {
+      fecha: start.toDate().toLocaleDateString("es-MX", {
         day: "2-digit",
         month: "2-digit",
         year: "numeric",
