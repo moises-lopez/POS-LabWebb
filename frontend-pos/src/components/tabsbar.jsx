@@ -78,18 +78,33 @@ const TabsBar = ({ tab, handelTabChange }) => {
           color="#000000"
         >
           <path d="M0 0h24v24H0z" fill="none"></path>
-          <path d="M18 17H6v-2h12v2zm0-4H6v-2h12v2zm0-4H6V7h12v2zM3 22l1.5-1.5L6 22l1.5-1.5L9 22l1.5-1.5L12 22l1.5-1.5L15 22l1.5-1.5L18 22l1.5-1.5L21 22V2l-1.5 1.5L18 2l-1.5 1.5L15 2l-1.5 1.5L12 2l-1.5 1.5L9 2 7.5 3.5 6 2 4.5 3.5 3 2v20z"></path>
+          <path d="M9 17H7v-7h2v7zm4 0h-2V7h2v10zm4 0h-2v-4h2v4zm2.5 2.1h-15V5h15v14.1zm0-16.1h-15c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h15c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2z"></path>
         </svg>
       </li>
       <li rel="tab3" onClick={() => handelTabChange(registro)}>
-        <p width="32px" height="32px">
-          Registrar Usuario
-        </p>
+        <svg
+          width="32px"
+          height="32px"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          color="#000000"
+        >
+          <path fill="none" d="M0 0h24v24H0z"></path>
+          <path d="M13 8c0-2.21-1.79-4-4-4S5 5.79 5 8s1.79 4 4 4 4-1.79 4-4zm2 2v2h3v3h2v-3h3v-2h-3V7h-2v3h-3zM1 18v2h16v-2c0-2.66-5.33-4-8-4s-8 1.34-8 4z"></path>
+        </svg>
       </li>
       <li rel="tab3" onClick={() => handleCloseSesion()}>
-        <p width="32px" height="32px">
-          Cerrar Sesion
-        </p>
+        <svg
+          width="32px"
+          height="32px"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="currentColor"
+          color="#000000">
+          <path d="M0 0h24v24H0z" fill="none"></path>
+          <path d="M17 7l-1.41 1.41L18.17 11H8v2h10.17l-2.58 2.58L17 17l5-5zM4 5h8V3H4c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h8v-2H4V5z"></path>
+        </svg>
       </li>
     </ul>
   );

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Button from "@material-ui/core/Button";
 import axios from "axios";
+import Header from '../components/header'
 import { ResponsiveBar } from "@nivo/bar";
 import { useHistory } from "react-router-dom";
 import { API_URL } from "../constants.js";
@@ -44,6 +45,7 @@ const ReporteVentas = () => {
 
   return (
     <div style={myStyle}>
+      <Header currPage="Reporte semanal"></Header>
       <Button onClick={() => handleButton(1)}>Semana anterior</Button>
       <Button onClick={() => handleButton(-1)}>Semana Posterior</Button>
 
